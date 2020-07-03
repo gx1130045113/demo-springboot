@@ -6,7 +6,7 @@ jdbc:
 
 # tomcat\u7AEF\u53E3
 server:
-  port: 8080
+  port: 80
 
 #\u65E5\u5FD7
 logging:
