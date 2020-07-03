@@ -1,0 +1,15 @@
+jdbc:
+  driverClassName: com.mysql.jdbc.Driver
+  url: jdbc:mysql://127.0.0.1:3306/springboot_test
+  username: root123
+  password: 123456
+
+# tomcat\u7AEF\u53E3
+server:
+  port: 8080
+
+#\u65E5\u5FD7
+logging:
+  level:
+    com.example: debug
+
