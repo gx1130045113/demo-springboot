@@ -19,7 +19,6 @@ public class MyInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        log.info("我进入了");
         log.debug("这是MyInterceptor的preHandle的方法");
         return true;
     }
