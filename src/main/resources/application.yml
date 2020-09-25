@@ -13,3 +13,16 @@ logging:
   level:
     com.example: debug
 
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/springboot_testern
+    username: root123
+    password: 123456
+mybatis:
+  #配置实体类别名包路径
+  type-aliases-package: com.example.pojo
+  #映射文件路径
+ # mapper-locations: classpath:mapper/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

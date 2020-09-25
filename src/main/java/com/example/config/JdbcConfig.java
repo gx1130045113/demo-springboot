@@ -15,10 +15,10 @@ import javax.sql.DataSource;
  * @Date 2020/7/3
  * @Version V1.0
  **/
-@Configuration
-@PropertySource("classpath:application.yml")
+/*@Configuration
+@PropertySource("classpath:application.yml")*/
 public class JdbcConfig {
-    @Value("${jdbc.url}")
+/*    @Value("${jdbc.url}")
     String url;
     @Value("${jdbc.driverClassName}")
     String driverClassName;
@@ -35,5 +35,5 @@ public class JdbcConfig {
         druidDataSource.setUsername(username);
         druidDataSource.setPassword(password);
         return druidDataSource;
-    }
+    }*/
 }
