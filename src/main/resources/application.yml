@@ -1,28 +1,19 @@
-jdbc:
-  driverClassName: com.mysql.jdbc.Driver
-  url: jdbc:mysql://127.0.0.1:3306/springboot_test
-  username: root123
-  password: 123456
-
-# tomcat\u7AEF\u53E3
 server:
-  port: 80
-
-#\u65E5\u5FD7
-logging:
-  level:
-    com.example: debug
+  port: 9050
+  servlet:
+    context-path: /admin
 
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/springboot_testern
-    username: root123
-    password: 123456
-mybatis:
-  #配置实体类别名包路径
-  type-aliases-package: com.example.pojo
-  #映射文件路径
- # mapper-locations: classpath:mapper/*.xml
+    url: jdbc:mysql://49.84.226.185:13306/test?useUnicode=true&useSSL=false&characterEncoding=utf8
+    username: mysql
+    password:
+
+# MyBatis Plus配置
+mybatis-plus:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.example.entity
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+

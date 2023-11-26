@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Notification System</title>
+    <style>
+        /* Styles from previous code remain unchanged */
+        /* ... */
+    </style>
+</head>
+<body>
+
+<div id="notification-bell" onclick="toggleNotificationPopup()">
+    🔔<span id="unread-count">0</span>
+</div>
+<div id="notification-popup">123</div>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.2/sockjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+<script th:inline="javascript">
+
+    var stompClient = null;
+    var backendBaseUrl = 'http://localhost:9050/admin'; // Update this URL/port as needed
+
+    function connect() {
+        var socket = new SockJS('ws://localhost:9050/admin/endpointSang');
+        stompClient = Stomp.over(socket);
+
+        stompClient.connect({}, function (frame) {
+            console.log('Connected: ' + frame);
+            stompClient.subscribe('/user/queue/notifications', function (notification) {
+                handleNotification(JSON.parse(notification.body));
+            });
+        });
+    }
+
+    function handleNotification(notification) {
+        var container = $('#notification-popup');
+        container.prepend('<div class="notification">' + notification.title + '</div>');
+        updateUnreadCount();
+    }
+
+    function updateUnreadCount() {
+        var unreadCount = $('#notification-popup .notification').length;
+        $('#unread-count').text(unreadCount > 0 ? unreadCount : '');
+    }
+
+    function toggleNotificationPopup() {
+        var container = $('#notification-popup');
+        container.toggle();
+        updateUnreadCount();  // Reset unread count when opening the popup
+
+        // Fetch all notifications when the bell icon is clicked
+        if (container.is(':visible')) {
+            fetchAllNotifications();
+        }
+    }
+
+    function fetchAllNotifications() {
+        $.get(backendBaseUrl + '/all', function (notifications) {
+            var container = $('#notification-popup');
+            container.empty(); // Clear existing notifications
+            notifications.forEach(function (notification) {
+                container.append('<div class="notification">' + notification.title + '</div>');
+            });
+            updateUnreadCount();
+        });
+    }
+
+    // Call connect function when the page is loaded
+    $(document).ready(function () {
+        connect();
+    });
+
+</script>
+</body>
+</html>
